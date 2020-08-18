@@ -8,6 +8,10 @@ from datetime import datetime
 
 
 def do_pack():
+    """
+    Function to create a dist folder compressed
+    Returns: False if the file at the path archive_path doesn’t exist
+    """
     local('mkdir -p versions')
     time = datetime.now().strftime('%Y%m%d%H%M%S')
     name_path = 'versions/web_static_' + time
