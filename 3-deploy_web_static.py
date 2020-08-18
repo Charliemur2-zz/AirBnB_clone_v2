@@ -48,10 +48,12 @@ def do_deploy(archive_path):
     else:
         return False
 
+
 def deploy():
     """
-    script (based on the file 2-do_deploy_web_static.py) that creates and distributes
-     an archive to your web servers, using the function deploy
+    script (based on the file 2-do_deploy_web_static.py) that c
+    reates and distributes an archive
+    to your web servers, using the function deploy
     """
     path = do_pack()
     deploy = do_deploy(path)
