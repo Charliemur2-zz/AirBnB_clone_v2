@@ -22,7 +22,8 @@ def do_pack():
         return None
     else:
         return file
-    
+
+
 def do_deploy(archive_path):
     """
     Function to deploy in 2 web servers
