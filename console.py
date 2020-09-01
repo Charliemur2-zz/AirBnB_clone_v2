@@ -125,7 +125,9 @@ class HBNBCommand(cmd.Cmd):
         Value syntax:
         String: "<value>" => starts with a double quote
         any double quote inside the value must be escaped with a backslash \
-        all underscores _ must be replace by spaces . Example: You want to set the string My little house to the attribute name, your command line must be name="My_little_house"
+        all underscores _ must be replace by spaces . Example: You want to set
+        the string My little house to the attribute name, your command line
+        must be name="My_little_house"
         Float: <unit>.<decimal> => contains a dot .
         Integer: <number> => default case """
         lista = args.split()
@@ -140,7 +142,7 @@ class HBNBCommand(cmd.Cmd):
             if self.param_ver(param):
                 lt = param.split("=")
                 if lt[1][0] == "\"" and lt[1][-1] == "\"" or\
-                    lt[1][0] == "'" and lt[1][-1] == "'":
+                        lt[1][0] == "'" and lt[1][-1] == "'":
                     lt[1] = lt[1][1:-1]
                     lt[1] = lt[1].replace("_", " ")
                 else:
@@ -363,9 +365,9 @@ class HBNBCommand(cmd.Cmd):
         p_str = re.compile('\w+=".+"')
         p_float = re.compile('\w+=-*\d+\.\d+')
         p_int = re.compile('\w+=-*\d+')
-        if p_str.match(string) == None and\
-            p_float.match(string) == None and\
-            p_int.match(string) == None:
+        if p_str.match(string) is None and\
+            p_float.match(string) is None and\
+                p_int.match(string) is None:
             return False
         return True
 
