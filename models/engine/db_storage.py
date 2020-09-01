@@ -58,13 +58,11 @@ class DBStorage:
                     dic[key] = row
                     
         else:
-            model = models[cls]
-            query = DBStorage.__session.query(model)
-            for row in query:
-                delattr(row, '_sa_instance_state')
-                key = row.__class__.__name__ + '.' + row.id
-                dic[key] = row
-        return dic
+            if type(cls) is str:
+                model = models[cls]
+            else:
+                model = cls
+            query = self.__session.query(model)
 
     def new(self, obj):
         """ add the object to the current database session """
