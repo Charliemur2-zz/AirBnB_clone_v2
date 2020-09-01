@@ -63,3 +63,7 @@ class FileStorage:
             if obj.to_dict() == value.to_dict():
                 FileStorage.__objects.pop(key, None)
         self.save()
+
+    def close(self):
+        """method for deserializing the JSON file to objects"""
+        self.reload()
