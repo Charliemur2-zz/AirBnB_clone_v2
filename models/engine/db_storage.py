@@ -51,7 +51,7 @@ class DBStorage:
         if cls is None:
             for cls in models:
                 model = models[cls]
-                query = DBStorage.__session.query(model)
+                query = self.__session.query(model)
                 for row in query:
                     delattr(row, '_sa_instance_state')
                     key = row.__class__.__name__ + '.' + row.id
@@ -63,6 +63,11 @@ class DBStorage:
             else:
                 model = cls
             query = self.__session.query(model)
+            for row in query:
+                delattr(row, '_sa_instance_state')
+                key = row.__class__.__name__ + '.' + row.id
+                dic[key] = row
+        return dic
 
     def new(self, obj):
         """ add the object to the current database session """
