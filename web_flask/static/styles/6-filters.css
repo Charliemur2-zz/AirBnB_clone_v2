@@ -71,7 +71,6 @@ div.locations:hover .popover
     margin: -7px 0 0 -40px;
     max-height: 300px;
     overflow-y: scroll;
-    overflow: hidden;
 }
 div.amenities:hover .popover
 {
@@ -83,7 +82,6 @@ div.amenities:hover .popover
     list-style: none;
     margin: -7px 0 0 -40px;
     overflow-y: scroll;
-    overflow: hidden;
 }
 li
 {
