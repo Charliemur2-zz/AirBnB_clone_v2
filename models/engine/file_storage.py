@@ -12,11 +12,17 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         dic = {}
         if cls is None:
-                return FileStorage.__objects
+            for key, value in FileStorage.__objects.copy().items():
+                dic[key] = value
+            return FileStorage.__objects
         for key, value in FileStorage.__objects.items():
             lista = key.split(".")
-            if lista[0] == cls.__name__:
-                dic[key] = value
+            if type(cls) is str:
+                if lista[0] == cls:
+                    dic[key] = value
+            else:
+                if lista[0] == cls.__name__:
+                    dic[key] = value
         return dic
 
     def new(self, obj):
@@ -65,5 +71,5 @@ class FileStorage:
         self.save()
 
     def close(self):
-        """method for deserializing the JSON file to objects"""
+        """ call reload() for deserializing """
         self.reload()

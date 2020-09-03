@@ -12,19 +12,20 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship("City",
                           backref='state',
-                          cascade="all, delete-orphan")
+                          cascade="all, delete-orphan",
+                          single_parent=True)
 
-    @property
-    def cities(self):
-        """ getter method for cities """
-        from models import storage
-        if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-            return
-        cities = []
-        filestorage = storage._FileStorage__objects
-        for key, value in filestorage.items():
-            lista = key.split(".")
-            if lista[0] == "City":
-                if value.to_dict()["state_id"] == self.id:
-                    cities.append(value)
-        return cities
+    if os.getenv('HBNB_TYPE_STORAGE') != 'db':
+
+        @property
+        def cities(self):
+            """ getter method for cities """
+            from models import storage
+            cities = []
+            filestorage = storage._FileStorage__objects
+            for key, value in filestorage.items():
+                lista = key.split(".")
+                if lista[0] == "City":
+                    if value.to_dict()["state_id"] == self.id:
+                        cities.append(value)
+            return cities

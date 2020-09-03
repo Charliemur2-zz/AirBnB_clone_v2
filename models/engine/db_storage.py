@@ -53,7 +53,6 @@ class DBStorage:
                 model = models[cls]
                 query = self.__session.query(model)
                 for row in query:
-                    delattr(row, '_sa_instance_state')
                     key = row.__class__.__name__ + '.' + row.id
                     dic[key] = row
 
@@ -64,22 +63,21 @@ class DBStorage:
                 model = cls
             query = self.__session.query(model)
             for row in query:
-                delattr(row, '_sa_instance_state')
                 key = row.__class__.__name__ + '.' + row.id
                 dic[key] = row
         return dic
 
     def new(self, obj):
         """ add the object to the current database session """
-        DBStorage.__session.add(obj)
+        self.__session.add(obj)
 
     def save(self):
         """ commit all changes of the current db session """
-        DBStorage.__session.commit()
+        self.__session.commit()
 
     def delete(self, obj=None):
         """ delete from the current db session obj if not None """
-        DBStorage.__session.delete(obj)
+        self.__session.delete(obj)
 
     def reload(self):
         """ create all tables in db """
@@ -87,8 +85,8 @@ class DBStorage:
         session_factory = sessionmaker(
             bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
-        DBStorage.__session = Session()
+        self.__session = Session()
 
     def close(self):
-        """call close() method on the private session attribute"""
+        """ call remove() for deserializing """
         self.__session.close()
